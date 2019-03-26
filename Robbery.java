@@ -5,15 +5,31 @@
 // You are encouraged to make helper functions!
 
 public class Robbery {
+	
+	public int max(int x, int y) {
+		if(x > y) return x;
+		return y;
+	}
 
 	// Using DP: Get the maximum value with capacity C and n items
 	public int maximizeRobWorthRecur(
 		int capacity,
+		int n,
 		int[] sizes,
 		int[] worths
 	) {
 		// fill in here, change the return
+		if (n == 0 || capacity == 0)
 			return 0;
+		else if (sizes[n -1] > capacity) {
+			return maximizeRobWorthRecur(capacity, n-1, sizes, worths);
+		}
+		else {
+			int excludedItem = maximizeRobWorthRecur(capacity, n - 1, sizes, worths);
+			int includedItem;
+			//take max of two and return it
+			return max(excludedItem, includedItem);
+		}
 	}
 
 	public int maximizeRobWorthBottomUp(
